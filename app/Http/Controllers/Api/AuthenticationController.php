@@ -35,16 +35,16 @@ class AuthenticationController extends Controller
             ]);
 
             $data = [
-                'token' => $user->createToken('MessageApp')->plainTextToken,
+                //'token' => $user->createToken('MessageApp')->plainTextToken,
                 'name' => $user->name,
                 'email' => $user->email,
                 'avatar' => $user->avatar,
                 'gender_code' => $user->gender_code,
             ];
 
-            return successResponse('User registered successfully.', $data, 201);
+            return ApiResponseFunction::successResponse('User registered successfully.', $data, 201);
         } catch (Exception $e) {
-            return errorResponse($e);
+            return ApiResponseFunction::errorResponse($e);
         }
     }
 
