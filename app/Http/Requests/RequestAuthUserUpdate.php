@@ -6,6 +6,7 @@ use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\Rule;
 
 class RequestAuthUserUpdate extends FormRequest
 {
@@ -29,7 +30,13 @@ class RequestAuthUserUpdate extends FormRequest
             'gender_code' => 'required|string|in:male,female,other',
             'mobile_no' => 'nullable|string|max:20',
             'telephone_no' => 'nullable|string|max:20',
-            'avatar' => 'nullable|image|mimes:jpg,jpeg,png|max:2048'
+            'avatar' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
+            'username' => [
+                'required',
+                'string',
+                'max:255',
+                Rule::unique('users')->ignore(Auth::id()),  // Ignore the current user's username during validation
+            ],
         ];
     }
 

@@ -28,14 +28,13 @@ class AuthenticationController extends Controller
             $user = User::create([
                 'name' => $request->name,
                 'email' => $request->email,
-                'username' => $request->email,
+                'username' => uniqid('user_'),
                 'gender_code' => $request->gender_code,
                 'password' => Hash::make($request->password),
                 'avatar' => $avatar,
             ]);
 
             $data = [
-                //'token' => $user->createToken('MessageApp')->plainTextToken,
                 'name' => $user->name,
                 'email' => $user->email,
                 'avatar' => $user->avatar,
@@ -123,6 +122,7 @@ class AuthenticationController extends Controller
             // Update user fields using mass assignment
             $user->fill([
                 'name' => $request->name,
+                'username' => $request->username ?? $user->username,
                 'gender_code' => $request->gender_code,
                 'mobile_no' => $request->mobile_no ?? $user->mobile_no,
                 'telephone_no' => $request->telephone_no ?? $user->telephone_no,
