@@ -20,5 +20,9 @@ Route::controller(AuthenticationController::class)->group(function () {
 
 Route::middleware('auth:sanctum')->group(function () {
     Route::post('/contact/store', [MessageContactController::class, 'contactStore']);
+    Route::get('/contact/list', [MessageContactController::class, 'contactList']);
+    Route::get('/contact/detail/{id}', [MessageContactController::class, 'contactDetail']);
+    Route::post('/contact/update/{id}', [MessageContactController::class, 'contactUpdate']);
+
     Route::post('/template/store', [MessageTemplateController::class, 'templateStore']);
 });
