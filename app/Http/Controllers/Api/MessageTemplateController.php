@@ -13,7 +13,7 @@ class MessageTemplateController extends Controller
     public function templateStore(Request $request)
     {
         try {
-           
+
             return ApiResponseFunction::successResponse('Template has been stored successfully.', [], 201);
         } catch (Exception $e) {
             return ApiResponseFunction::errorResponse($e);

@@ -18,6 +18,12 @@ use App\Functions\FileUploadFunction;
 
 class AuthenticationController extends Controller
 {
+
+    public function unAuthenticated()
+    {
+        return ApiResponseFunction::errorResponse('Unauthenticated!', 401);
+    }
+
     public function signUp(RequestSignUp $request)
     {
         try {

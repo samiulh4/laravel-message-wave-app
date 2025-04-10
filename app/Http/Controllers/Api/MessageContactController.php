@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Http\Requests\RequestContactStore;
+use App\Http\Requests\RequestContactUpdate;
 use App\Functions\ApiResponseFunction;
 use Exception;
 use App\Models\MessageContact;
@@ -90,11 +91,11 @@ class MessageContactController extends Controller
         }
     }
 
-    public function contactUpdate($encodedId, Request $request)
+    public function contactUpdate($encodedId, RequestContactUpdate $request)
     {
         
         try {
-
+            
             $decodedId = EncryptionFunction::decodeId($encodedId);
             
             $contact = MessageContact::find($decodedId);
@@ -105,6 +106,7 @@ class MessageContactController extends Controller
             $contact->contact_name = $request->contact_name;
             $contact->contact_email = $request->contact_email;
             $contact->contact_mobile = $request->contact_mobile;
+            $contact->is_active = $request->is_active;
 
             $contact_image = $request->file('contact_image')
                 ? FileUploadFunction::uploadImageFile($request->file('contact_image'), 'uploads/contacts')

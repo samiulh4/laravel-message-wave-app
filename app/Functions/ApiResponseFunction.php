@@ -24,6 +24,9 @@ class ApiResponseFunction
             ]);
             $response['message'] = 'Something went wrong! Process not completed';
         } elseif (is_string($e)) {
+            Log::error('Exception occurred', [
+                'message' => $e
+            ]);
             $response['message'] = $e;
         }
         return response()->json($response, $code);
